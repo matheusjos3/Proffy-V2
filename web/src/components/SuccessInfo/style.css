@@ -1,0 +1,75 @@
+.bg-primary-flex {
+    height: 100vh;
+    background-color: var(--color-primary);
+    display: flex;
+    align-items: stretch;
+    padding: 4rem;
+}
+
+.bg-image-flex {
+    background: url('../../assets/background-large.svg') center no-repeat;
+    background-size: contain;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-image-flex h1 {
+    color: var(--color-box-base);
+    font: 700 54px Archivo;
+    margin-top: 2rem;
+}
+
+.bg-image-flex p {
+    color: var(--color-text-in-primary);
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.w-480 {
+    width: 480px;
+}
+
+.w-370 {
+    width: 370px;
+}
+
+.bg-image-flex a.back-button {
+    background-color: var(--color-secundary);
+    border-radius: 8px;
+    color: var(--color-box-base);
+    font: 600 1rem Archivo;
+    padding: 15px 40px 15px 40px;
+    text-decoration: none;
+    margin-top: 5rem;
+}
+
+.bg-image-flex a.back-button:hover {
+    background-color: var(--color-secundary-dark);
+    transition: 0.2s;
+}
+
+@media (max-width: 480px) {
+
+    .bg-primary-flex {
+        overflow: hidden;
+        justify-content: center;
+    }
+
+    .bg-image-flex {
+        background-size: cover;
+    }
+    
+    .bg-image-flex h1 {
+        font: 700 1.5rem Archivo;
+    }
+
+    .bg-image-flex p {
+        font-size: 12px;
+        width: auto;
+    }
+}
