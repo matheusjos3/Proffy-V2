@@ -1,9 +1,10 @@
 /* Container principal */
 .login-page {
+    width: 100vw;
+    height: 100vh;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     grid-template-areas: "background form";
-    height: 100vh;
 }
 
 .login-page main {
@@ -12,7 +13,8 @@
     align-items: center;
     justify-content: center;
     grid-area: form;
-    /* padding: 5rem; */
+    margin: 0 auto;
+  
 }
 
 .logo-container {
@@ -24,14 +26,14 @@
 }
 
 .login-area h1{
-    font-size: 2rem;
+    font-size: 3.7rem;
     color: var(--color-text-title);
     font-weight: bold;
-    margin-bottom: 2rem;
+    margin-bottom: 4.1rem;
 }
 
 .login-area form {
-    margin-bottom: 6rem;
+    margin-bottom: 10.3rem;
 }
 
 .input-group div:first-child {
@@ -46,12 +48,12 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin-top: 25px;
-    margin-bottom: 2rem;
+    margin-top: 2.5rem;
+    margin-bottom: 4.1rem;
 }
 
 .login-options a {
-    font-size: 0.9rem;
+    font-size: 1.4rem;
     color: var(--color-text-complement);
     text-decoration: none;
 }
@@ -61,7 +63,7 @@
 }
 
 .login-options label {
-    font-size: 0.9rem;
+    font-size: 1.4rem;
     color: var(--color-text-complement);
     cursor: pointer;
 }
@@ -96,21 +98,24 @@
 }
 
 .login-footer p:nth-child(1) {
-    font-size: 1rem;
+    font-size: 1.6rem;
     width: 170px;
 }
 
 .login-footer p:nth-child(2) {
-    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
     color: var(--color-text-complement);
 }
 
 .login-footer img {
     opacity: 50%;
+    margin-left: 0.8rem;
 }
 
 .login-footer a.open-form {
-    font-size: 1rem;
+    font-size: 1.6rem;
     font-weight: 600;
     color: var(--color-primary);
 }
@@ -143,5 +148,9 @@
         background-color: var(--color-background);
         padding: 2rem;
         display: block;
+    }
+
+    .login-page main {
+        margin: 0;
     }
 }

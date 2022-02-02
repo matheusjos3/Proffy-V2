@@ -7,7 +7,7 @@ import FloatingLabel from '../components/FloatingLabel'
 import ProffyElement from '../components/ProffyElement'
 
 import '../styles/ForgotPassword.css'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 function ForgotPassword() {
 

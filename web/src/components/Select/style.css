@@ -1,0 +1,96 @@
+.select-block{
+    position: relative;
+}
+
+.select-block label{
+    font-size: 1.4rem;
+}
+
+.select .options-container {
+    width: 100%;
+    max-height: 5.6rem;
+    margin-top: 0.8rem;
+    border-radius: 0.8rem;
+    background: var(--color-input-background);
+    border: 1px solid var(--color-line-in-white);
+    font: 1.4rem Poppins;
+    position: relative;
+    margin-top: 0.8rem;
+    transition: all 0.4s;
+    overflow: hidden;
+}
+
+.select .options-container:hover{
+    max-height: 999px;
+}
+
+.selected ~ .option {
+    border-top: 1px solid var(--color-line-in-white);
+}
+
+.select .option, .selected {
+    padding: 12px 24px;
+    cursor: pointer;
+}
+
+.selected {
+    color: var(--color-label-in-white);
+    margin-top: 0.6rem;
+    margin-bottom: 0.2em;
+}
+
+.option {
+    position: relative;
+}
+
+.option label {
+    color: var(--color-text-base);
+    font: 400 16px Poppins;
+}
+
+.option:hover {
+    background: var(--color-hover);
+    font-weight: 700;
+}
+
+.option.active::before{
+    content: '';
+    position: absolute;
+    width: 1.5px;
+    height: 100%;
+    display: block;
+    background-color: var(--color-primary);
+    top: 0;
+    left: 0;
+}
+
+.option.active{
+    background: var(--color-hover);
+    font-weight: 700;
+}
+
+.selected input {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font: 1.4rem Poppins;
+}
+
+.selected::after {
+    content: "";
+    display: inline-block;
+    background: url("../../assets/icons/arrow.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 25px;
+    right: 16px;
+    width: 1rem;
+    height: 1rem;
+    transition: all 0.4s;
+}
+
+.select .options-container:hover .selected::after{
+    transform: rotateX(180deg);
+    top: 23px;
+}

@@ -4,7 +4,7 @@ import './style.css'
 function ProffyElement() {
     return (
         <aside className="proffy-area">
-            <div className="proffy-background-flex">
+            <div className="proffy-background">
                 <div className="logo-container">
                     <img src={logoSvg} alt="Proffy" />
                 </div>

@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { Link, useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import backSvg from '../assets/icons/back.svg';
 import eyeOnSvg from '../assets/icons/eye.svg';
@@ -21,9 +21,7 @@ function CreateAccount() {
 
     function register(e: FormEvent) {
         e.preventDefault()
-
         history.push('/success-create-account')
-
     }
 
     return (

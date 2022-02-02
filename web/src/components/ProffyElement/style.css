@@ -1,9 +1,9 @@
 .proffy-area {
-    padding: 10%;
+    padding: 5rem 0;
     background-color: var(--color-primary);
 }
 
-.proffy-background-flex {
+.proffy-background {
     background: url('../../assets/background.svg') center no-repeat;
     background-size: contain;
     width: 100%;

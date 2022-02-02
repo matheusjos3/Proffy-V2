@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import heartSvg from '../assets/icons/purple-heart.svg';
 import eyeOnSvg from '../assets/icons/eye.svg';
@@ -14,6 +14,7 @@ function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [passwordShown, setPasswordShown] = useState(false)
+    const history = useHistory()
 
     const tooglePassword = () => {
         setPasswordShown(!passwordShown)
@@ -21,7 +22,8 @@ function Login() {
 
     function register(event: FormEvent) {
         event.preventDefault()
-        console.log(email, password, passwordShown)
+
+        history.push('/home')
     }
 
     return (

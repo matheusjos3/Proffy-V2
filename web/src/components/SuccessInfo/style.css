@@ -1,4 +1,5 @@
 .bg-primary-flex {
+    width: 100vw;
     height: 100vh;
     background-color: var(--color-primary);
     display: flex;
@@ -19,13 +20,13 @@
 
 .bg-image-flex h1 {
     color: var(--color-box-base);
-    font: 700 54px Archivo;
+    font: 700 5.6rem Archivo;
     margin-top: 2rem;
 }
 
 .bg-image-flex p {
     color: var(--color-text-in-primary);
-    font-size: 1rem;
+    font-size: 1.6rem;
     text-align: center;
     margin-top: 1rem;
 }
@@ -42,10 +43,10 @@
     background-color: var(--color-secundary);
     border-radius: 8px;
     color: var(--color-box-base);
-    font: 600 1rem Archivo;
+    font: 600 1.6rem Archivo;
     padding: 15px 40px 15px 40px;
     text-decoration: none;
-    margin-top: 5rem;
+    margin-top: 8.3rem;
 }
 
 .bg-image-flex a.back-button:hover {
