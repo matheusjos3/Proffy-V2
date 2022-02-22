@@ -42,7 +42,9 @@ export default class UserController {
 
         try {
 
-            const user = await db('users').where('email', email).first()
+            const user = await db('users')
+                .where('email', email)
+                .first()
 
             if (!user) return response.status(404).send('Usuario não encontrado.')
 
@@ -63,11 +65,37 @@ export default class UserController {
         }
     }
 
-    //Teste
-    async get(request: Request, response: Response) {
-        const user = await db('users')
+    async getUserData(request: Request, response: Response) {
+        const { user_id } = request.body
 
-        return response.status(201).json(user)
+        try {
+            const user = await db('users')
+                .select('email', 'name', 'last_name', 'bio', 'avatar', 'whatsapp')
+                .where('id', user_id)
+                .first()
+
+            if (!user) {
+                return response.status(200).send('User not found')
+            }
+
+            const classes = await db('classes')
+                .select('id', 'subject', 'cost')
+                .where('user_id', user_id)
+                .first()
+
+            if (!classes) {
+                return response.status(200).json({ user })
+            }
+
+            const schedules = await db('class_schedule')
+                .select('*')
+                .where('class_id', classes.id)
+
+            return response.status(200).json({ user, classes, schedules })
+
+        } catch (err) {
+            return response.status(400).send(err)
+        }
     }
 }
 
