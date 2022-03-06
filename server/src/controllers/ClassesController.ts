@@ -29,6 +29,7 @@ export default class ClassesController {
         const subject = filters.subject as string
         const week_day = filters.week_day as string
         const time = filters.time as string
+        const page = Number(filters.page) || 1
         let classes: Array<ClassItem> = []
 
         if (!filters.week_day || !filters.subject || !filters.time) {
@@ -52,15 +53,20 @@ export default class ClassesController {
             .join('class_schedule', 'classes.id', '=', 'class_schedule.class_id')
             .select('classes.id as id_class', 'classes.subject', 'classes.cost', 'classes.user_id', 'users.name',
                 'users.last_name', 'users.whatsapp', 'users.avatar', 'users.bio', 'class_schedule.*')
+            .limit(10)
+            .offset((page - 1) * 10)
 
         class_list.forEach(item => {
-            const { id_class, subject, cost, user_id, avatar, name, last_name, whatsapp, bio } = item
-            classes[item.id_class] = { id_class, subject, cost, user_id, avatar, name, last_name, whatsapp, bio, schedules: [] }
-        })
+            const { id_class, subject, cost, user_id, avatar, name, last_name, whatsapp, bio, week_day, from, to, class_id } = item
 
-        class_list.forEach(item => {
-            const { week_day, from, to, class_id } = item
-            classes[item.id_class].schedules.push({ week_day, from, to, class_id })
+            classes[item.id_class] = classes[item.id_class] || {
+                id_class, subject, cost, user_id, avatar, name, last_name, whatsapp, bio,
+                schedules: []
+            }
+
+            classes[item.id_class].schedules.push({
+                week_day, from, to, class_id
+            })
         })
 
         classes = classes.filter(item => item !== null)
