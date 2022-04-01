@@ -7,6 +7,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import SuccessResetPassword from './pages/SuccessResetPassword';
 import Landing from './pages/Landing';
 import Profile from './pages/Profile';
+import TeacherForm from './pages/TeacherForm';
 
 function Routes() {
     return (
@@ -19,6 +20,7 @@ function Routes() {
                 <Route path="/success-reset-credentials" component={SuccessResetPassword} />
                 <Route path="/home" component={Landing} />
                 <Route path="/profile" component={Profile} />
+                <Route path="/give-classes" component={TeacherForm} />
             </Switch>
         </BrowserRouter>
     )
