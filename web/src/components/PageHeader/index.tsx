@@ -1,21 +1,46 @@
 import { Link } from "react-router-dom";
 
-import logo from '../../assets/logo.svg';
-import back from '../../assets/icons/back.svg';
+import logoImg from '../../assets/logo.svg';
+import backIcon from '../../assets/icons/back.svg';
 import './style.css'
 
-interface HeaderProps{
-    title: string
+interface pageHeaderProps {
+    title: string;
+    description?: string;
+    src: string;
+    alt: string;
+    style: string;
+    paragraphOne: string
+    paragraphTwo: string
 }
 
-function PageHeader({title} : HeaderProps) {
+const PageHeader: React.FC<pageHeaderProps> = (props) => {
     return (
-        <header className="container">
-            <Link to="/landing">
-                <img src={back} alt="Ícone de voltar" />
-            </Link>
-            <span>{title}</span>
-            <img src={logo} alt="Proffy" />
+        <header className="page-header">
+            <div className="top-bar-container">
+                <div className="top-bar-content">
+                    <Link to="/home">
+                        <img src={backIcon} alt="Voltar" />
+                    </Link>
+                    <span>Dar aulas</span>
+                    <img src={logoImg} alt="Proffy" />
+                </div>
+            </div>
+
+            <div className="header-content">
+                <div className="header-title">
+                    <strong>{props.title}</strong>
+                    {props.description && <p>{props.description}</p>}
+                    <div className={props.style}>
+                        <img src={props.src} alt={props.alt} />
+                        <div>
+                            <p>{props.paragraphOne}</p>
+                            <p>{props.paragraphTwo}</p>
+                        </div>
+                    </div>
+                </div>
+                {props.children}
+            </div>
         </header>
     )
 }
