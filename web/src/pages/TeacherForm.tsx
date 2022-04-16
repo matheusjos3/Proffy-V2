@@ -14,9 +14,8 @@ function TeacherForm() {
                 description='O primeiro passo, é preencher esse formulário de inscrição.'
                 src={rocketIcon}
                 alt='Ilustração de foquete'
-                style='form-give-classes'
-                paragraphOne='Prepare-se!'
-                paragraphTwo='vai ser o máximo.'
+                style='info-form-text'
+                paragraph='Prepare-se! vai ser o máximo.'
             />
 
             <main>
