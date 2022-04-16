@@ -9,9 +9,8 @@ interface pageHeaderProps {
     description?: string;
     src: string;
     alt: string;
-    style: string;
-    paragraphOne: string
-    paragraphTwo: string
+    style: 'info-form-text' | 'info-study-text';
+    paragraph: string
 }
 
 const PageHeader: React.FC<pageHeaderProps> = (props) => {
@@ -33,10 +32,7 @@ const PageHeader: React.FC<pageHeaderProps> = (props) => {
                     {props.description && <p>{props.description}</p>}
                     <div className={props.style}>
                         <img src={props.src} alt={props.alt} />
-                        <div>
-                            <p>{props.paragraphOne}</p>
-                            <p>{props.paragraphTwo}</p>
-                        </div>
+                        <p>{props.paragraph}</p>
                     </div>
                 </div>
                 {props.children}

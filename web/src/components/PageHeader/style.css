@@ -55,26 +55,36 @@
     margin-top: 2.4rem;
 }
 
-.header-title .form-give-classes p , .header-title .form-study p {
+.info-form-text p,
+.info-study-text p{
     font: 500 1.2rem Poppins;
-    text-align: left;
     color: var(--color-text-in-primary);
 }
 
-.form-give-classes, .form-study {
+.info-form-text p {
+    width: 92px;
+    text-align: right;
+}
+
+.info-study-text p{
+    width: 81px;
+}
+
+.info-form-text,
+.info-study-text {
     display: flex;
     margin-top: 2.4rem;
     margin-bottom: 2.4rem;
 }
 
-.form-give-classes img, .form-study img {
+.info-form-text img, .info-study-text img {
     margin-right: 16px;
 }
 
 
 @media (min-width: 700px){
     .page-header{
-        height: 416px;
+        min-height: 340px;
     }
 
     .top-bar-container {
@@ -108,19 +118,19 @@
         position: relative;
     }
 
-    .form-give-classes, .form-study {
+    .info-form-text, .info-study-text {
         display: flex;
         position: absolute;
         margin-top: 0;
         margin-bottom: 0;
     }
 
-    .form-give-classes {
+    .info-form-text {
         bottom: 0;
         right: 0;
     }
 
-    .form-study {
+    .info-study-text {
         top: 50%;
         right: 0;
         transform: translateY(-50%)
