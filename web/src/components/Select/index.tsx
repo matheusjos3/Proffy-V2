@@ -17,6 +17,9 @@ const Select: React.FC<SelectProps> = ({ label, name, options, placeholder }) =>
 
     const [selected, setSelected] = useState('')
     const [active, setActive] = useState('')
+    const [isOpen, setIsOpen] = useState(false)
+
+    const open = () => setIsOpen(!isOpen)
 
     function change(value: string, label: string) {
         // changeValue(value)
@@ -25,16 +28,18 @@ const Select: React.FC<SelectProps> = ({ label, name, options, placeholder }) =>
     }
 
     return (
-
         <div className="select-block">
             <label htmlFor={name}>{label}</label>
 
-            <div className="select">
-                <div className="options-container">
-                    <div className="selected">
-                        <input type="text" value={selected} placeholder={placeholder} readOnly />
-                    </div>
+            <div 
+                className={isOpen ? 'select open' : 'select'}
+                onClick={open}
+            >
+                <div className="selected">
+                    <input type="text" value={selected} placeholder={placeholder} readOnly />
+                </div>
 
+                <div className="options-container">
                     {options.map(option => (
                         <div key={option.value} className={`
                                 ${active === option.value ? 'option active' : 'option'}
@@ -46,6 +51,13 @@ const Select: React.FC<SelectProps> = ({ label, name, options, placeholder }) =>
                     ))}
                 </div>
             </div>
+
+            {/* <div className="select">
+                <div className="selected">
+                    <input type="text" value={selected} placeholder={placeholder} readOnly />
+                </div>
+                
+            </div> */}
         </div>
     );
 }
