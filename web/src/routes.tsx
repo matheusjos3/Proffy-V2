@@ -8,6 +8,7 @@ import SuccessResetPassword from './pages/SuccessResetPassword';
 import Landing from './pages/Landing';
 import Profile from './pages/Profile';
 import TeacherForm from './pages/TeacherForm';
+import TeacherList from './pages/TeacherList';
 
 function Routes() {
     return (
@@ -21,6 +22,7 @@ function Routes() {
                 <Route path="/home" component={Landing} />
                 <Route path="/profile" component={Profile} />
                 <Route path="/give-classes" component={TeacherForm} />
+                <Route path="/study" component={TeacherList} />
             </Switch>
         </BrowserRouter>
     )
