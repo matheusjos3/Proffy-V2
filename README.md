@@ -12,6 +12,14 @@
 
 <br>
 
+# ⚡ Demonstração
+
+<p>
+    Veja apenas o Frontend do projeto aqui 👉 https://matheus-proffy.netlify.app/
+</p>
+
+<br>
+
 # 💻 Primeiras telas
 
 <img src="./github/preview1.gif">
@@ -27,4 +35,4 @@ Responsivo: Mobile
 ---
 ## Contato
 
-[![Linkedin Badge](https://img.shields.io/badge/-Matheus-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/matheus-jsousa/)](https://www.linkedin.com/in/matheus-jsousa/)
+[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/matheus-jsousa/)](https://www.linkedin.com/in/matheus-jsousa/)
