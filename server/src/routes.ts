@@ -5,6 +5,7 @@ import UserController from './controllers/UserController';
 import UserPasswordController from './controllers/UserPasswordController';
 import FavoriteController from './controllers/favoritesController';
 import ConnectionsController from './controllers/ConnectionsController';
+import AuthenticationController from './controllers/AuthenticationController';
 
 import autenticate from './middlewares/auth'
 
@@ -14,23 +15,26 @@ const classesController = new ClassesController()
 const userPasswordController = new UserPasswordController()
 const favoriteControler = new FavoriteController()
 const connectionsController = new ConnectionsController();
+const authenticationController = new AuthenticationController();
 
-routes.post('/login', userController.login)
+routes.post('/login', authenticationController.login)
 routes.post('/user', userController.create)
-routes.get('/user', userController.getUserData)
-routes.put('/user', userController.updateUser)
+routes.get('/user', autenticate, userController.getUserData)
+routes.put('/user', autenticate, userController.updateUser)
 
 routes.post('/forgot_password', userPasswordController.forgotPassword)
 routes.put('/reset_password', userPasswordController.resertPassword)
 
-routes.get('/classes', classesController.index)
-routes.post('/classes', classesController.create)
+routes.get('/classes', autenticate, classesController.index)
+routes.post('/classes', autenticate ,classesController.create)
 
-routes.get('/favorites', favoriteControler.index)
-routes.post('/favorites', favoriteControler.add)
-routes.delete('/favorites', favoriteControler.remove)
+routes.get('/favorites', autenticate, favoriteControler.index)
+routes.post('/favorites', autenticate, favoriteControler.add)
+routes.delete('/favorites', autenticate, favoriteControler.remove)
 
 routes.get('/connections', connectionsController.index)
-routes.post('/connections', connectionsController.create)
+routes.post('/connections', autenticate, connectionsController.create)
+
+routes.put('/refresh-token', authenticationController.refreshToken)
 
 export default routes;
