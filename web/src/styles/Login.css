@@ -44,6 +44,13 @@
     border-radius: 0px 0px 10px 10px;
 }
 
+.error-message {
+    margin-top: 1.2rem;
+    text-align: center;
+    font-size: 1.4rem;
+    color: var(--color-text-error);
+}
+
 .login-options {
     display: flex;
     align-items: baseline;

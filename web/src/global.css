@@ -23,6 +23,7 @@
     --color-disable: #DCDCE5;
     --color-hover: #EBEBF5;
     --color-text-delete: #E33D3D;
+    --color-text-error: #E83F5B;
   
     font-size: 60%;
 }
