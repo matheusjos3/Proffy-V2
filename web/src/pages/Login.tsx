@@ -33,7 +33,6 @@ function Login() {
 
         try {
             await signIn({ email, password, remember })
-            history.push('/home')
         } catch (error: any) {
             if (error.response.status === 400) {
                 setErrorMsg(error.response.data)
@@ -70,7 +69,7 @@ function Login() {
                             </FloatingLabel>
                         </div>
 
-                        
+
 
                         <div className="login-options">
                             <div className="remember-me">

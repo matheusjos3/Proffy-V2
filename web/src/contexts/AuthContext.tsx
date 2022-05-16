@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import api from '../services/api'
 
 interface User {
@@ -17,7 +18,9 @@ interface signInData {
 interface AuthContextData {
     user: User | null,
     authenticated: boolean,
-    signIn: (data: signInData) => Promise<void>
+    signIn: (data: signInData) => Promise<void>,
+    signOut: () => void,
+    loading: boolean
 }
 
 export const AuthContext = createContext({} as AuthContextData)
@@ -25,6 +28,24 @@ export const AuthContext = createContext({} as AuthContextData)
 export const AuthProvider: React.FC = ({ children }) => {
     const [user, setUser] = useState<User | null>(null)
     const [authenticated, setAuthenticated] = useState<boolean>(false)
+    const [loading, setLoading] = useState(true)
+    const history = useHistory()
+
+    useEffect(() => {
+        function loadStorageData() {
+            const storageUser = localStorage.getItem('ssn_pyd')
+            const storageToken = localStorage.getItem('ssn_tkn')
+
+            if (storageUser && storageToken) {
+                setUser(JSON.parse(storageUser))
+                setAuthenticated(true)
+            }
+
+            setLoading(false)
+        }
+
+        loadStorageData()
+    }, [])
 
     async function signIn({ email, password, remember }: signInData) {
 
@@ -38,11 +59,20 @@ export const AuthProvider: React.FC = ({ children }) => {
 
             setUser(response.data.payload)
             setAuthenticated(true)
+            history.push('/home')
         }
     }
 
+    function signOut() {
+        localStorage.removeItem('ssn_pyd')
+        localStorage.removeItem('ssn_tkn')
+        setUser(null)
+        setAuthenticated(false)
+        history.push('/')
+    }
+
     return (
-        <AuthContext.Provider value={{ authenticated, user, signIn }}>
+        <AuthContext.Provider value={{ authenticated, user, signIn, signOut, loading }}>
             {children}
         </AuthContext.Provider>
     )

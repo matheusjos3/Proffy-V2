@@ -6,9 +6,17 @@ import logoutSvg from '../assets/icons/logout.svg'
 import purpleHeartIcon from '../assets/icons/purple-heart.svg'
 import studyIcon from '../assets/icons/study.svg';
 import giveClassIcon from '../assets/icons/give-classes.svg';
+import defaultAvatar from '../assets/default-avatar.svg'
+import { useAuth } from '../contexts/AuthContext';
 import '../styles/Landing.css'
 
 function Landing() {
+    const { signOut, user } = useAuth()
+
+    function handleLogout() {
+        signOut()
+    }
+
     return (
         <div id="page-landing">
 
@@ -16,11 +24,11 @@ function Landing() {
                 <div className="container">
                     <div className="page-landing-header-top">
                         <Link to="/profile" className='page-landing-header-profile'>
-                            <img src="https://avatars.githubusercontent.com/u/45835795?v=4" alt="Plataforma de estudos" />
-                            <p>Matheus José</p>
+                            <img src={user?.avatar ? user.avatar : defaultAvatar} alt="Plataforma de estudos" />
+                            <p>{`${user?.name} ${user?.last_name}`}</p>
                         </Link>
 
-                        <a href="/" className="btn-logout"><img src={logoutSvg} alt='Ícone de desligar' /></a>
+                        <button type='button' onClick={handleLogout} className="btn-logout"><img src={logoutSvg} alt='Ícone de desligar' /></button>
                     </div>
                     <div className="page-landing-header-image">
                         <div className="logo-container-landing">
