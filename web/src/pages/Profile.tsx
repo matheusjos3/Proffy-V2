@@ -18,7 +18,7 @@ function Profile() {
             <header className="page-header">
                 <div className="page-header-top">
                     <div className="page-header-top-content container">
-                        <Link to="/home">
+                        <Link to="/">
                             <img src={back} alt="Ícone de voltar" />
                         </Link>
                         <span>Meu Perfil</span>

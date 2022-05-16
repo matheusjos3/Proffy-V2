@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import heartSvg from '../assets/icons/purple-heart.svg';
 import eyeOnSvg from '../assets/icons/eye.svg';
@@ -18,7 +18,7 @@ function Login() {
     const [remember, setRemember] = useState(false);
     const [passwordShown, setPasswordShown] = useState(false)
     const [errorMsg, setErrorMsg] = useState('')
-    const history = useHistory()
+    const [isValidatingLogin, setIsValidatingLogin] = useState(false)
 
     const tooglePassword = () => {
         setPasswordShown(!passwordShown)
@@ -31,12 +31,17 @@ function Login() {
     async function hanleLogin(event: FormEvent) {
         event.preventDefault()
 
+        setIsValidatingLogin(true)
+
         try {
             await signIn({ email, password, remember })
+            setIsValidatingLogin(false)
         } catch (error: any) {
             if (error.response.status === 400) {
                 setErrorMsg(error.response.data)
             }
+
+            setIsValidatingLogin(false)
         }
     }
 
@@ -79,7 +84,7 @@ function Login() {
                             <Link to="/forgot-password">Esqueci minha senha</Link>
                         </div>
 
-                        <Button type="submit" text="Entrar" isDisabled={email.length === 0 || password.length === 0} />
+                        <Button type="submit" text="Entrar" isLoading={isValidatingLogin} isDisabled={email.length === 0 || password.length === 0 || isValidatingLogin} />
                         {errorMsg && <p className="error-message">{errorMsg}</p>}
                     </form>
 

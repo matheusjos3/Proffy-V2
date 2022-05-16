@@ -8,6 +8,8 @@
     border: none;
     font: 400 1.6rem Archivo;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
     transition: 0.1s;
 }
 

@@ -10,12 +10,13 @@ import Profile from './pages/Profile';
 import TeacherForm from './pages/TeacherForm';
 import TeacherList from './pages/TeacherList';
 import { useAuth } from './contexts/AuthContext';
+import Loading from './components/Loading';
 
 function PrivateRoute({ component: Component, ...rest }: any) {
     const { authenticated, loading } = useAuth()
 
     if (loading) {
-        return <h1>Carregando</h1>
+        return <Loading />
     }
 
     return (
@@ -26,7 +27,7 @@ function PrivateRoute({ component: Component, ...rest }: any) {
                     ?
                     (<Component {...props} />)
                     :
-                    (<Redirect to={{ pathname: '/', state: { from: props.location } }} />)
+                    (<Redirect to={{ pathname: '/login', state: { from: props.location } }} />)
             )
             }
         />
@@ -36,12 +37,12 @@ function PrivateRoute({ component: Component, ...rest }: any) {
 function Routes() {
     return (
         <Switch>
-            <Route path="/" exact component={Login} />
+            <PrivateRoute path="/" exact component={Landing} />
+            <Route path="/login" component={Login} />
             <Route path="/create-account" component={CreateAccount} />
             <Route path="/success-create-account" component={SuccessCreateAccount} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route path="/success-reset-credentials" component={SuccessResetPassword} />
-            <PrivateRoute path="/home" component={Landing} />
             <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute path="/give-classes" component={TeacherForm} />
             <PrivateRoute path="/study" component={TeacherList} />

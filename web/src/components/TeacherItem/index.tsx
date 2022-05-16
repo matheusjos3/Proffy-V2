@@ -88,7 +88,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
                 <p>Preço/Hora <strong>{toReal(teacher.cost)}</strong></p>
                 <a target='_blank'
                     href={`https://wa.me/${teacher.whatsapp}`}
-                    rel="nore">
+                    rel="noreferrer noopener">
                     <img src={whatsappIcon} alt="Entrar em contato" />
                     Entrar em contato
                 </a>

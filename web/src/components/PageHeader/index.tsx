@@ -9,7 +9,7 @@ interface pageHeaderProps {
     description?: string;
     src: string;
     alt: string;
-    style: 'info-form-text' | 'info-study-text';
+    styleInfo: 'info-form-text' | 'info-study-text';
     paragraph: string
 }
 
@@ -18,7 +18,7 @@ const PageHeader: React.FC<pageHeaderProps> = (props) => {
         <header className="page-header">
             <div className="top-bar-container">
                 <div className="top-bar-content">
-                    <Link to="/home">
+                    <Link to="/">
                         <img src={backIcon} alt="Voltar" />
                     </Link>
                     <span>Dar aulas</span>
@@ -30,7 +30,7 @@ const PageHeader: React.FC<pageHeaderProps> = (props) => {
                 <div className="header-title">
                     <strong>{props.title}</strong>
                     {props.description && <p>{props.description}</p>}
-                    <div className={props.style}>
+                    <div className={props.styleInfo}>
                         <img src={props.src} alt={props.alt} />
                         <p>{props.paragraph}</p>
                     </div>

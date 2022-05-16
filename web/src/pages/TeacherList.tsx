@@ -12,7 +12,7 @@ function TeacherList() {
                 title='Estes são os proffys disponíveis.'
                 src={smileIcon}
                 alt='Ilustração de emoji sorrindo'
-                style='info-study-text'
+                styleInfo='info-study-text'
                 paragraph='Nós temos 32 professores.'
             >
                 <form id="search-teachers">

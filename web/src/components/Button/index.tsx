@@ -1,15 +1,17 @@
+import Loading from '../Loading';
 import './style.css';
 
 interface ButtonProps {
     text: string;
     type?: 'submit';
-    isDisabled?: boolean
+    isDisabled?: boolean;
+    isLoading?: boolean
 }
 
-function Button({type, text, isDisabled} : ButtonProps) {
-    return(
+function Button({ type, text, isDisabled, isLoading }: ButtonProps) {
+    return (
         <button type={type} className="btn" disabled={isDisabled}>
-            {text}
+            {isLoading ? <Loading /> : text}
         </button>
     );
 }

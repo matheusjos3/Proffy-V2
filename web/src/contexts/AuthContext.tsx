@@ -59,7 +59,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
             setUser(response.data.payload)
             setAuthenticated(true)
-            history.push('/home')
+            history.push('/')
         }
     }
 
@@ -68,7 +68,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         localStorage.removeItem('ssn_tkn')
         setUser(null)
         setAuthenticated(false)
-        history.push('/')
+        history.push('/login')
     }
 
     return (
