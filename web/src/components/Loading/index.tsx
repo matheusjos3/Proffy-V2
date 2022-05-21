@@ -1,10 +1,10 @@
-import loadingIcon from '../../assets/icons/circle-notch-bold.svg'
+import { CircleNotch } from 'phosphor-react';
 import './style.css';
 
 function Loading() {
     return (
-        <div className='loading-style'>
-            <img src={loadingIcon} alt="Imagem de carregamento" />
+        <div >
+            <CircleNotch size={20} color="#ffffff" weight="bold" className='loading-animation' />
         </div>
     )
 }
