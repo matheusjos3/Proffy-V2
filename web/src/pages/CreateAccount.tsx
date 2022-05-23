@@ -10,8 +10,16 @@ import Button from '../components/Button';
 import ProffyElement from '../components/ProffyElement';
 
 import '../styles/CreateAccount.css'
+import api from '../services/api';
+import { useToast } from '../contexts/ToastContext';
+import Toast from '../components/Toast';
 
 function CreateAccount() {
+    const { addMessage } = useToast()
+    const [name, setName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [passwordShown, setPasswordShown] = useState(false)
     const history = useHistory()
 
@@ -19,9 +27,11 @@ function CreateAccount() {
         setPasswordShown(!passwordShown)
     }
 
-    function register(e: FormEvent) {
+    async function register(e: FormEvent) {
         e.preventDefault()
-        history.push('/success-create-account')
+        await api.post('/user', { name, last_name: lastName, email, password })
+            .then(() => history.push('/success-create-account'))
+            .catch(res => addMessage({ message: res.response.data.error, type: 'Error' }))
     }
 
     return (
@@ -37,24 +47,32 @@ function CreateAccount() {
                                 type="text"
                                 label="Nome"
                                 placeholder="Nome"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                             />
 
                             <FloatingLabel
                                 type="text"
                                 label="Sobrenome"
                                 placeholder="Sobrenome"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
                             />
 
                             <FloatingLabel
                                 type="text"
                                 label="E-mail"
                                 placeholder="E-mail"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
 
                             <FloatingLabel
                                 type={passwordShown ? 'text' : 'password'}
                                 label="Senha"
                                 placeholder="Senha"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             >
                                 <button type="button" onClick={tooglePassword} ><img src={passwordShown ? eyeOffSvg : eyeOnSvg} alt="Visibilidade da senha" /></button>
                             </FloatingLabel>
@@ -63,6 +81,7 @@ function CreateAccount() {
                         <Button type="submit" text="Concluir cadastro" />
                     </form>
                 </div>
+                <Toast />
             </main>
             <ProffyElement />
         </div>
