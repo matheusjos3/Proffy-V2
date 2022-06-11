@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
 import db from '../database/connection';
-import 'dotenv/config';
+import bcrypt from 'bcrypt';
 import convertHourToMinutes from '../utils/convertHourToMinutes';
 import { isEmpty } from '../utils/isEmpty';
+import 'dotenv/config';
 
 interface ScheduleItem {
     id: number,
@@ -36,14 +36,13 @@ export default class UserController {
             return response.status(200).send();
 
         } catch (err) {
-            return response.status(400).json({
-                error: 'Unexpected error.'
-            })
+            return response.status(400).json({ message: 'Unexpected error.' })
         }
     }
 
     async getUserData(request: Request, response: Response) {
-        const { user_id } = request.body
+        const query = request.query
+        const user_id = query.user_id as string
 
         try {
             const user = await db('users')
@@ -52,7 +51,7 @@ export default class UserController {
                 .first()
 
             if (!user) {
-                return response.status(200).send('User not found')
+                return response.status(400).json({ message: 'User not found.' })
             }
 
             const classes = await db('classes')
@@ -71,7 +70,7 @@ export default class UserController {
             return response.status(200).json({ user, classes, schedules })
 
         } catch (err) {
-            return response.status(400).send(err)
+            return response.status(400).json({ message: 'Unexpected error.' })
         }
     }
 
@@ -86,13 +85,8 @@ export default class UserController {
             isEmpty(name)
             isEmpty(email)
             isEmpty(last_name)
-            isEmpty(bio)
-            isEmpty(whatsapp)
-            isEmpty(subject)
-            isEmpty(cost)
-            isEmpty(schedule)
         } catch (error) {
-            return response.status(400).json({ error: error })
+            return response.status(400).json({ message: error })
         }
 
         const isEmailAvailable = await db('users')
@@ -105,7 +99,7 @@ export default class UserController {
             .first()
 
         if (isEmailAvailable && isEmailAvailable.id !== user_id) {
-            return response.status(400).send("Este E-mail já está em uso.")
+            return response.status(400).json({ message: 'Este E-mail já está em uso' })
         }
 
         await db("users")
@@ -113,6 +107,15 @@ export default class UserController {
             .where('id', user_id)
 
         if (user_class) {
+
+            try {
+                isEmpty(cost)
+                isEmpty(subject)
+                isEmpty(schedule)
+            } catch (error) {
+                return response.status(400).json({ message: error })
+            }
+
             await db("classes")
                 .update({ subject, cost })
                 .where('user_id', user_id)
@@ -137,7 +140,7 @@ export default class UserController {
             })
         }
 
-        return response.status(200).json({ status: 'Perfil Atualizado.' })
+        return response.status(200).json({ message: 'Perfil Atualizado.' })
 
     }
 }

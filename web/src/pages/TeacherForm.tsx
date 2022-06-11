@@ -5,8 +5,11 @@ import Input from '../components/Input';
 import Textarea from '../components/Textarea';
 import Select from '../components/Select';
 import warningIcon from '../assets/icons/warning.svg';
+import { useState } from 'react';
 
 function TeacherForm() {
+    const [subject, setSubject] = useState('');
+
     return (
         <div id="page-teacher-form" className='container'>
             <PageHeader
@@ -17,6 +20,8 @@ function TeacherForm() {
                 styleInfo='info-form-text'
                 paragraph='Prepare-se! vai ser o máximo.'
             />
+
+            {subject}
 
             <main>
                 <form>
@@ -42,9 +47,10 @@ function TeacherForm() {
 
                         <div className='teacher-form-input-grid'>
                             <Select
-                                name="week_day"
+                                name="subjec"
                                 label="Matéria"
-                                placeholder="Selecione qual você quer ensinar"
+                                value={subject}
+                                onChange={(e) => setSubject(e.target.value)}
                                 options={[
                                     { value: 'Artes', label: 'Artes' },
                                     { value: 'Biologia', label: 'Biologia' },
@@ -75,7 +81,8 @@ function TeacherForm() {
                             <Select
                                 name="week_day"
                                 label='Máteria'
-                                placeholder="Selecione o dia"
+                                value={subject}
+                                onChange={(e) => setSubject(e.target.value)}
                                 options={[
                                     { value: '0', label: 'Domingo' },
                                     { value: '1', label: 'Segunda-feira' },

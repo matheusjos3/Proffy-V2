@@ -1,6 +1,5 @@
 import PageHeader from '../components/PageHeader';
 import smileIcon from '../assets/icons/smile.svg';
-import Select from '../components/Select';
 import TeacherItem, { Teacher } from '../components/TeacherItem';
 import { teacher } from '../utils/user';
 import '../styles/TeacherList.css'
@@ -15,7 +14,7 @@ function TeacherList() {
                 styleInfo='info-study-text'
                 paragraph='Nós temos 32 professores.'
             >
-                <form id="search-teachers">
+                {/* <form id="search-teachers">
                     <Select
                         name="week_day"
                         label="Matéria"
@@ -58,7 +57,7 @@ function TeacherList() {
                             { value: '07:00', label: '7h' },
                         ]}
                     />
-                </form>
+                </form> */}
             </PageHeader>
 
             <main>
