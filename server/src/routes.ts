@@ -8,12 +8,14 @@ import ConnectionsController from './controllers/ConnectionsController';
 import AuthenticationController from './controllers/AuthenticationController';
 
 import autenticate from './middlewares/auth'
+import ScheduleController from './controllers/ScheduleController';
 
 const routes = express.Router()
 const userController = new UserController()
 const classesController = new ClassesController()
 const userPasswordController = new UserPasswordController()
 const favoriteControler = new FavoriteController()
+const scheduleController = new ScheduleController();
 const connectionsController = new ConnectionsController();
 const authenticationController = new AuthenticationController();
 
@@ -26,7 +28,7 @@ routes.post('/forgot_password', userPasswordController.forgotPassword)
 routes.put('/reset_password', userPasswordController.resertPassword)
 
 routes.get('/classes', autenticate, classesController.index)
-routes.post('/classes', autenticate ,classesController.create)
+routes.post('/classes', autenticate, classesController.create)
 
 routes.get('/favorites', autenticate, favoriteControler.index)
 routes.post('/favorites', autenticate, favoriteControler.add)
@@ -36,5 +38,8 @@ routes.get('/connections', connectionsController.index)
 routes.post('/connections', autenticate, connectionsController.create)
 
 routes.put('/refresh-token', authenticationController.refreshToken)
+
+routes.post('/schedule', scheduleController.addSchedule)
+routes.delete('/schedule', scheduleController.removeSchedule)
 
 export default routes;
