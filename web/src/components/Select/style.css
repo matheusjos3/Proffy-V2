@@ -2,203 +2,33 @@
     position: relative;
 }
 
+.select-block+.select-block {
+    margin-top: 1.4rem;
+}
+
 .select-block label {
     font-size: 1.4rem;
 }
 
-.select {
-    border-radius: 0.8rem;
-    background: var(--color-input-background);
-    border: 1px solid var(--color-line-in-white);
-    position: absolute;
-    margin-top: 0.8rem;
+.select-block select {
+    width: 100%;
     height: 5.6rem;
-    width: 100%;
-}
-
-.options-container {
-    overflow-y: scroll;
-    max-height: 0;
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-.select.open {
-    z-index: 999;
-    height: auto;
-}
-
-.select.open .options-container{
-    max-height: 200px;
-    opacity: 1;
-}
-
-.select .option {
-    padding: 12px 24px;
-    cursor: pointer;
-}
-
-.selected {
-    padding: 16px 0px 16px 24px;
-}
-
-.selected input {
-    border: none;
-    background-color: transparent;
-    outline: none;
-    font: 400 1.6rem Poppins;
-    width: 100%;
-    cursor: pointer;
-}
-
-.option {
-    border-top: 1px solid var(--color-line-in-white);
-    position: relative;
-}
-
-.option:hover {
-    background: var(--color-hover);
-    font-weight: 700;
-}
-
-.option span {
-    color: var(--color-text-base);
-    font: 400 1.6rem Poppins;
-}
-
-.option.active::before{
-    content: '';
-    position: absolute;
-    width: 2px;
-    height: 100%;
-    display: block;
-    background-color: var(--color-primary);
-    top: 0;
-    left: 0;
-}
-
-.option.active{
-    background: var(--color-hover);
-    font-weight: 700;
-}
-
-.selected::after {
-    content: "";
-    display: inline-block;
-    background: url("../../assets/icons/arrow.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    position: absolute;
-    top: 25px;
-    right: 16px;
-    width: 1rem;
-    height: 1rem;
-    transition: all 0.4s;
-}
-
-.select.open .selected::after{
-    transform: rotateX(180deg);
-    top: 20px;
-}
-
-/* .select-block{
-    position: relative;
-}
-
-
-
-.select-block label{
-    font-size: 1.4rem;
-}
-
-.select .options-container {
-    width: 100%;
-    max-height: 5.6rem;
     margin-top: 0.8rem;
     border-radius: 0.8rem;
     background: var(--color-input-background);
     border: 1px solid var(--color-line-in-white);
-    font: 1.4rem Poppins;
-    position: absolute;
-    top: 0;
-    margin-top: 0.8rem;
-    transition: all 0.4s;
-    overflow: scroll;
+    outline: 0;
+    padding: 0 1.6rem;
+    font: 400 1.6rem Poppins;
 }
 
-.select .options-container:hover{
-    max-height: 999px;
-    z-index: 100;
-}
-
-.selected ~ .option {
-    border-top: 1px solid var(--color-line-in-white);
-}
-
-.select .option, .selected {
-    padding: 12px 24px;
-    cursor: pointer;
-}
-
-.selected {
-    color: var(--color-label-in-white);
-    margin-top: 0.6rem;
-    margin-bottom: 0.2em;
-}
-
-.option {
-    position: relative;
-}
-
-.option label {
-    color: var(--color-text-base);
-    font: 400 16px Poppins;
-}
-
-.option:hover {
-    background: var(--color-hover);
-    font-weight: 700;
-}
-
-.option.active::before{
+.select-block:focus-within::after {
+    width: calc(100% - 3.2rem);
+    height: 2px;
     content: '';
+    background: var(--color-primary-light);
     position: absolute;
-    width: 1.5px;
-    height: 100%;
-    display: block;
-    background-color: var(--color-primary);
-    top: 0;
-    left: 0;
+    left: 1.6rem;
+    right: 1.6rem;
+    bottom: 0;
 }
-
-.option.active{
-    background: var(--color-hover);
-    font-weight: 700;
-}
-
-.selected input {
-    border: none;
-    background-color: transparent;
-    outline: none;
-    font: 1.4rem Poppins;
-    width: 100%;
-}
-
-.selected::after {
-    content: "";
-    display: inline-block;
-    background: url("../../assets/icons/arrow.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    position: absolute;
-    top: 25px;
-    right: 16px;
-    width: 1rem;
-    height: 1rem;
-    transition: all 0.4s;
-}
-
-.select .options-container:hover .selected::after{
-    transform: rotateX(180deg);
-    top: 23px;
-} */
