@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import api from '../services/api'
+import { clearLocalStorageApp, getLocalStorageToken, getLocalStorageUser, setLocalStorageToken, setLocalStorageUser } from '../utils/storage'
 
 interface User {
     id: number,
@@ -33,12 +34,13 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     useEffect(() => {
         function loadStorageData() {
-            const storageUser = localStorage.getItem('ssn_pyd')
-            const storageToken = localStorage.getItem('ssn_tkn')
+            const storageUser = getLocalStorageUser()
+            const storageToken = getLocalStorageToken()
 
             if (storageUser && storageToken) {
-                setUser(JSON.parse(storageUser))
+                setUser(storageUser)
                 setAuthenticated(true)
+                api.defaults.headers.common['Authorization'] = `Bearer ${storageToken}`;
             }
 
             setLoading(false)
@@ -53,19 +55,19 @@ export const AuthProvider: React.FC = ({ children }) => {
 
         if (response.status === 200) {
             if (remember) {
-                localStorage.setItem('ssn_pyd', JSON.stringify(response.data.payload))
-                localStorage.setItem('ssn_tkn', JSON.stringify(response.data.token))
+                setLocalStorageUser(JSON.stringify(response.data.payload))
+                setLocalStorageToken(response.data.token)
             }
 
             setUser(response.data.payload)
             setAuthenticated(true)
+            api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
             history.push('/')
         }
     }
 
     function signOut() {
-        localStorage.removeItem('ssn_pyd')
-        localStorage.removeItem('ssn_tkn')
+        clearLocalStorageApp()
         setUser(null)
         setAuthenticated(false)
         history.push('/login')
