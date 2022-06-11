@@ -1,5 +1,9 @@
-export default function convertMinutesToHours(v: number) {
-    const timeInHours = v / 60
+export default function convertMinutesToHours(minute: number) {
+    const formatNumber = (num: number) => num < 10 ? `0${num}` : num
 
-    return Math.floor(timeInHours)
+    const hour = formatNumber(Math.floor(minute / 60))
+    const minutes = formatNumber(Math.floor(minute % 60))
+    const converted = `${hour}:${minutes}`
+
+    return converted
 }
