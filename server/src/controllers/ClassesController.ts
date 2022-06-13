@@ -117,7 +117,7 @@ export default class ClassesController {
 
         } catch (err) {
             await trx.rollback();
-            return response.status(400).send(err)
+            return response.status(400).json({ message: 'Erro ao cadastrar sua aula.' })
         }
     }
 }

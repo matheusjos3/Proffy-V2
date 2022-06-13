@@ -1,4 +1,4 @@
-
+import { FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import logo from '../assets/logo.svg';
@@ -7,15 +7,16 @@ import camera from '../assets/icons/camera.svg';
 import Textarea from '../components/Textarea'
 import Input from '../components/Input'
 import Select from '../components/Select'
-
 import warningIcon from '../assets/icons/warning.svg';
-import { FormEvent, useEffect, useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import defaultAvatar from '../assets/default-avatar.svg';
+
 import api from '../services/api';
-import Toast from '../components/Toast'
-import '../styles/Profile.css'
+import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
+import Toast from '../components/Toast'
 import convertMinutesToHours from '../utils/convertMinutesToHours';
+import { getLocalStorageUser } from '../utils/storage';
+import '../styles/Profile.css'
 
 interface ScheduleItem {
     id: number;
@@ -30,6 +31,7 @@ function Profile() {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [avatar, setAvatar] = useState('');
     const [whatsapp, setWhatsapp] = useState('');
     const [bio, setBio] = useState('');
     const [subject, setSubjec] = useState('');
@@ -41,13 +43,15 @@ function Profile() {
 
     useEffect(() => {
         async function getUserData() {
-            await api.get('/user', { params: { user_id: user?.id } })
+            const storageUser = getLocalStorageUser()
+            await api.get('/user', { params: { user_id: storageUser.id } })
                 .then(res => {
                     setName(res.data.user.name)
                     setLastName(res.data.user.last_name)
                     setEmail(res.data.user.email)
-                    setWhatsapp(res.data.user.whastapp || '')
+                    setWhatsapp(res.data.user.whatsapp || '')
                     setBio(res.data.user.bio)
+                    setAvatar(res.data.user.avatar || '')
 
                     if (res.data.classes) {
                         setIsTeacher(true)
@@ -67,7 +71,7 @@ function Profile() {
         }
 
         getUserData()
-    }, [user])
+    }, [])
 
     async function addNewScheduleItem() {
         await api.post('/schedule', { class_id, week_day: 0, from: 0, to: 0 })
@@ -129,13 +133,13 @@ function Profile() {
                     <div className="background-container">
                         <div className="profile-info">
                             <div className="image-profile-area">
-                                <img src="https://avatars.githubusercontent.com/u/45835795?v=4" alt="Plataforma de estudos" />
+                                <img src={avatar !== '' ? avatar : defaultAvatar} alt="Plataforma de estudos" />
                                 <button type='button'>
                                     <img src={camera} alt="Ícone de câmera" />
                                 </button>
                             </div>
-                            <span>Matheus José</span>
-                            <p>Geografia</p>
+                            <span>{`${name} ${lastName}`}</span>
+                            <p>{subject !== '' ? subject : 'Sem informação'}</p>
                         </div>
                     </div>
                 </div>
@@ -176,7 +180,7 @@ function Profile() {
                             <Input
                                 name='whastapp'
                                 label='Whatsapp'
-                                type={'tel'}
+                                type={'text'}
                                 value={whatsapp}
                                 onChange={(e) => { setWhatsapp(e.target.value) }}
                             />
