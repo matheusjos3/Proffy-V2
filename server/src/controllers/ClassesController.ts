@@ -40,7 +40,7 @@ export default class ClassesController {
 
         const timeInMinutes = convertHourToMinutes(time)
 
-        const class_list = await db('classes')
+        const classList = await db('classes')
             .whereExists(function () {
                 this.select('class_schedule.*').from('class_schedule')
                     .whereRaw('`class_schedule`.`class_id`=`classes`.`id`')
@@ -50,23 +50,17 @@ export default class ClassesController {
             })
             .where('classes.subject', '=', subject)
             .join('users', 'classes.user_id', '=', 'users.id')
-            .join('class_schedule', 'classes.id', '=', 'class_schedule.class_id')
             .select('classes.id as id_class', 'classes.subject', 'classes.cost', 'classes.user_id', 'users.name',
-                'users.last_name', 'users.whatsapp', 'users.avatar', 'users.bio', 'class_schedule.*')
-            .limit(10)
-            .offset((page - 1) * 10)
+                'users.last_name', 'users.whatsapp', 'users.avatar', 'users.bio')
+            .limit(5)
+            .offset((page - 1) * 5)
 
-        class_list.forEach(item => {
-            const { id_class, subject, cost, user_id, avatar, name, last_name, whatsapp, bio, week_day, from, to, class_id } = item
+        const schedulesList = await db('class_schedule')
+            .whereIn('class_id', classList.map(item => item.id_class))
 
-            classes[item.id_class] = classes[item.id_class] || {
-                id_class, subject, cost, user_id, avatar, name, last_name, whatsapp, bio,
-                schedules: []
-            }
-
-            classes[item.id_class].schedules.push({
-                week_day, from, to, class_id
-            })
+        classList.forEach((item) => {
+            classes[item.id_class] = classes[item.id_class] || { ...item, schedules: [] }
+            classes[item.id_class].schedules = schedulesList.filter(sch => sch.class_id == item.id_class)
         })
 
         classes = classes.filter(item => item !== null)
