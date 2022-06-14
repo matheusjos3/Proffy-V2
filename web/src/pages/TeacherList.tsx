@@ -1,10 +1,27 @@
+import { FormEvent, useState } from 'react';
+
 import PageHeader from '../components/PageHeader';
 import smileIcon from '../assets/icons/smile.svg';
+
+import Select from '../components/Select';
+import Input from '../components/Input';
 import TeacherItem, { Teacher } from '../components/TeacherItem';
-import { teacher } from '../utils/user';
+import api from '../services/api';
 import '../styles/TeacherList.css'
 
 function TeacherList() {
+    const [teachers, setTeachers] = useState([]);
+    const [subject, setSubject] = useState('');
+    const [week_day, setWeekDay] = useState('');
+    const [time, setTime] = useState('');
+
+    async function searchTeachers(e: FormEvent) {
+        e.preventDefault();
+
+        await api('/classes', { params: { subject, week_day, time } })
+            .then(response => setTeachers(response.data))
+    }
+
     return (
         <div id="page-teacher-list" className="container">
             <PageHeader
@@ -14,16 +31,17 @@ function TeacherList() {
                 styleInfo='info-study-text'
                 paragraph='Nós temos 32 professores.'
             >
-                {/* <form id="search-teachers">
+                <form id="search-teachers" onSubmit={searchTeachers}>
                     <Select
-                        name="week_day"
+                        name="subjec"
                         label="Matéria"
-                        placeholder="Selecione"
+                        value={subject}
+                        onChange={(e) => { setSubject(e.target.value) }}
                         options={[
                             { value: 'Artes', label: 'Artes' },
                             { value: 'Biologia', label: 'Biologia' },
                             { value: 'Ciência', label: 'Ciência' },
-                            { value: 'Educação fisica', label: 'Ed fisica' },
+                            { value: 'Educação fisica', label: 'Educação fisica' },
                             { value: 'Fisica', label: 'Fisica' },
                             { value: 'Geografia', label: 'Geografia' },
                             { value: 'Historia', label: 'Historia' },
@@ -36,42 +54,43 @@ function TeacherList() {
                     <Select
                         name="week_day"
                         label='Dia da semana'
-                        placeholder="Selecione"
+                        value={week_day}
+                        onChange={(e) => { setWeekDay(e.target.value) }}
                         options={[
-                            { value: '0', label: 'Domingo' },
-                            { value: '1', label: 'Segunda-feira' },
-                            { value: '2', label: 'Terça-feira' },
-                            { value: '3', label: 'Quarta-feira' },
-                            { value: '4', label: 'Quinta-feira' },
-                            { value: '5', label: 'Sexta-feira' },
-                            { value: '6', label: 'Sabado' },
+                            { value: '0', label: 'Segunda-feira' },
+                            { value: '1', label: 'Terça-feira' },
+                            { value: '2', label: 'Quarta-feira' },
+                            { value: '3', label: 'Quinta-feira' },
+                            { value: '4', label: 'Sexta-feira' },
                         ]}
                     />
 
-                    <Select
+                    <Input
+                        type="time"
                         name="time"
-                        label='Hórario'
-                        placeholder="Selecione"
-                        options={[
-                            { value: '06:00', label: '6h' },
-                            { value: '07:00', label: '7h' },
-                        ]}
+                        label="Hora"
+                        value={time}
+                        onChange={(e) => { setTime(e.target.value) }}
                     />
-                </form> */}
+
+                    <button type="submit">
+                        Buscar
+                    </button>
+                </form>
             </PageHeader>
 
             <main>
-                {teacher.length <= 0 &&
+                {teachers.length <= 0 &&
                     <div className='empty-list'>
                         <p>Nenhum professor encontrado com sua pesquisa.</p>
                     </div>
                 }
 
-                {teacher.length > 0 &&
+                {teachers.length > 0 &&
                     <div className='teacher-list'>
                         {
-                            teacher.map((teacher: Teacher) => {
-                                return <TeacherItem key={teacher.id} teacher={teacher} />
+                            teachers.map((teacher: Teacher) => {
+                                return <TeacherItem key={teacher.id_class} teacher={teacher} />
                             })
                         }
                         <p>Estes são todos os resultados</p>
