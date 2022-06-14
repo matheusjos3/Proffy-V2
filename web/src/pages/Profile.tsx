@@ -14,7 +14,7 @@ import api from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 import Toast from '../components/Toast'
-import convertMinutesToHours from '../utils/convertMinutesToHours';
+import { convertMinutesToHours } from '../utils/convertMinutesToHours';
 import { getLocalStorageUser } from '../utils/storage';
 import '../styles/Profile.css'
 
@@ -74,14 +74,16 @@ function Profile() {
     }, [])
 
     async function addNewScheduleItem() {
-        await api.post('/schedule', { class_id, week_day: 0, from: 0, to: 0 })
-            .then(res => {
-                setSchedulesItems([
-                    ...scheduleItems,
-                    { id: res.data.id, week_day: 0, from: 0, to: 0 }
-                ])
-            })
-            .catch(err => addMessage({ message: err.response.data.message, type: 'Error' }))
+        if (scheduleItems.length <= 4) {
+            await api.post('/schedule', { class_id, week_day: 0, from: 0, to: 0 })
+                .then(res => {
+                    setSchedulesItems([
+                        ...scheduleItems,
+                        { id: res.data.id, week_day: 0, from: 0, to: 0 }
+                    ])
+                })
+                .catch(err => addMessage({ message: err.response.data.message, type: 'Error' }))
+        }
     }
 
     async function removeScheduleItem(id: number) {
@@ -108,6 +110,7 @@ function Profile() {
 
     function handleUpdateUser(e: FormEvent) {
         e.preventDefault()
+
         const data = { user_id: user?.id, name, email, last_name: lastName, avatar: '', bio, whatsapp, subject, cost, schedule: scheduleItems }
 
         api.put('/user', data)
@@ -244,13 +247,11 @@ function Profile() {
                                                 value={scheduleItem.week_day}
                                                 onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
                                                 options={[
-                                                    { value: '0', label: 'Domingo' },
-                                                    { value: '1', label: 'Segunda-feira' },
-                                                    { value: '2', label: 'Terça-feira' },
-                                                    { value: '3', label: 'Quarta-feira' },
-                                                    { value: '4', label: 'Quinta-feira' },
-                                                    { value: '5', label: 'Sexta-feira' },
-                                                    { value: '6', label: 'Sabado' },
+                                                    { value: '0', label: 'Segunda-feira' },
+                                                    { value: '1', label: 'Terça-feira' },
+                                                    { value: '2', label: 'Quarta-feira' },
+                                                    { value: '3', label: 'Quinta-feira' },
+                                                    { value: '4', label: 'Sexta-feira' },
                                                 ]}
                                             />
 

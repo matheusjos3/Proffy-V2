@@ -32,10 +32,12 @@ function TeacherForm() {
     ]);
 
     function addNewScheduleItem() {
-        setScheduleItems([
-            ...scheduleItems,
-            { week_day: 0, from: '', to: '' }
-        ])
+        if (scheduleItems.length <= 4) {
+            setScheduleItems([
+                ...scheduleItems,
+                { week_day: 0, from: '', to: '' }
+            ])
+        }
     }
 
     function setScheduleItemValue(position: number, field: string, value: string) {
@@ -154,13 +156,11 @@ function TeacherForm() {
                                         value={scheduleItem.week_day}
                                         onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
                                         options={[
-                                            { value: '0', label: 'Domingo' },
-                                            { value: '1', label: 'Segunda-feira' },
-                                            { value: '2', label: 'Terça-feira' },
-                                            { value: '3', label: 'Quarta-feira' },
-                                            { value: '4', label: 'Quinta-feira' },
-                                            { value: '5', label: 'Sexta-feira' },
-                                            { value: '6', label: 'Sabado' },
+                                            { value: '0', label: 'Segunda-feira' },
+                                            { value: '1', label: 'Terça-feira' },
+                                            { value: '2', label: 'Quarta-feira' },
+                                            { value: '3', label: 'Quinta-feira' },
+                                            { value: '4', label: 'Sexta-feira' },
                                         ]}
                                     />
 
