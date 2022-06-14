@@ -1,6 +1,6 @@
 import whatsappIcon from '../../assets/icons/whatsapp.svg';
 import defaultAvatar from '../../assets/default-avatar.svg';
-import convertMinutesToHours from '../../utils/convertMinutesToHours';
+import { convertMinutesToHoursInt } from '../../utils/convertMinutesToHours';
 import toReal from '../../utils/formatMoney';
 import './style.css';
 
@@ -8,7 +8,7 @@ export interface Teacher {
     avatar: string;
     bio: string;
     cost: number
-    id: number
+    id_class: number
     name: string;
     subject: string;
     whatsapp: string;
@@ -64,9 +64,9 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
                                     <span>Horário</span>
                                     <strong>
                                         {`
-                                            ${convertMinutesToHours(available.from)}h
+                                            ${convertMinutesToHoursInt(available.from)}h
                                              - 
-                                            ${convertMinutesToHours(available.to)}h`}
+                                            ${convertMinutesToHoursInt(available.to)}h`}
                                     </strong>
                                 </div>
                             )
