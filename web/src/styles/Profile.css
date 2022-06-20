@@ -43,12 +43,21 @@
     height: 1.6rem;
 }
 
+.profile-info {
+    margin-top: 2rem;
+    margin-bottom: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .image-profile-area {
     position: relative;
 }
 
 .page-profile-header .image-profile-area>img {
-    width: 180px;
+    width: 150px;
     border-radius: 50%;
 }
 
@@ -75,7 +84,6 @@
 .header-profile-content p {
     font: 400 2rem Poppins;
     color: var(--color-text-in-primary);
-    margin-top: 0.5rem;
 }
 
 /* --- HEADER --- */
@@ -119,6 +127,7 @@
     font: 700 1.6rem Archivo;
     cursor: pointer;
     transition: color 0.2s;
+    text-align: right;
 }
 
 #page-teacher main fieldset legend button:hover {
@@ -257,13 +266,19 @@
     .profile-info {
         margin-top: 5.6rem;
         margin-bottom: 7.6rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+    }
+
+    .page-profile-header .image-profile-area>img {
+        width: 180px;
+    }
+
+    .header-profile-content p {
+        margin-top: 0.5rem;
     }
 
     /* --- HEADER --- */
+
+    /* MAIN */
 
     #page-teacher main fieldset {
         padding: 0 6.4rem;

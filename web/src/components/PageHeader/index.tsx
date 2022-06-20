@@ -9,6 +9,7 @@ interface pageHeaderProps {
     description?: string;
     src: string;
     alt: string;
+    styleHeader: 'header-column' | 'header-row'
     styleInfo: 'info-form-text' | 'info-study-text';
     paragraph: string
 }
@@ -27,7 +28,7 @@ const PageHeader: React.FC<pageHeaderProps> = (props) => {
             </div>
 
             <div className="header-content">
-                <div className="header-title">
+                <div className={`header-title ${props.styleHeader}`}>
                     <strong>{props.title}</strong>
                     {props.description && <p>{props.description}</p>}
                     <div className={props.styleInfo}>

@@ -41,8 +41,8 @@ function Landing() {
                 </div>
             </header>
 
-            <section className='section-below container'>
-                <div className='section-below-welcome'>
+            <section className='page-landing-section container'>
+                <div className='page-landing-section-welcome'>
                     <p>Seja bem-vindo.</p>
                     <span>O que deseja fazer?</span>
                 </div>

@@ -30,6 +30,7 @@ function TeacherList() {
                 alt='Ilustração de emoji sorrindo'
                 styleInfo='info-study-text'
                 paragraph='Nós temos 32 professores.'
+                styleHeader='header-row'
             >
                 <form id="search-teachers" onSubmit={searchTeachers}>
                     <Select

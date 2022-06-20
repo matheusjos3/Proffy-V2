@@ -11,6 +11,10 @@
     color: var(--color-text-in-primary);
 }
 
+#search-teachers .select-block~.input-block {
+    margin-top: 1.4rem;
+}
+
 #search-teachers button {
     width: 100%;
     height: 5.6rem;
@@ -32,6 +36,24 @@
     background: var(--color-secundary-dark);
 }
 
+#page-teacher-list main .teacher-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#page-teacher-list main .empty-list {
+    width: 270px;
+    text-align: center;
+    color: var(--color-text-complement);
+    margin: 5rem auto 0 auto;
+}
+
+#page-teacher-list main .teacher-list .teacher-item~p {
+    margin: 4rem 0;
+    color: var(--color-text-complement);
+}
 
 @media (min-width: 700px) {
     #page-teacher-list {
@@ -44,6 +66,10 @@
         column-gap: 16px;
         position: absolute;
         bottom: -28px;
+    }
+
+    #search-teachers .select-block~.input-block {
+        margin-top: 0px;
     }
 
     #search-teachers .input-block+.input-block,
@@ -62,18 +88,6 @@
         text-align: center;
         color: var(--color-text-complement);
         margin: 10rem auto 0 auto;
-    }
-
-    #page-teacher-list main .teacher-list {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #page-teacher-list main .teacher-list .teacher-item~p {
-        margin: 4rem 0;
-        color: var(--color-text-complement);
     }
 
     #search-teachers button {

@@ -85,6 +85,7 @@ function TeacherForm() {
                 alt='Ilustração de foquete'
                 styleInfo='info-form-text'
                 paragraph='Prepare-se! vai ser o máximo.'
+                styleHeader='header-column'
             />
 
             <main>

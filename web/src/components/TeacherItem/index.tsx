@@ -10,6 +10,7 @@ export interface Teacher {
     cost: number
     id_class: number
     name: string;
+    last_name: string;
     subject: string;
     whatsapp: string;
     schedules: ScheduleItem[]
@@ -41,7 +42,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
                 }
 
                 <div>
-                    <strong>{teacher.name}</strong>
+                    <strong>{`${teacher.name} ${teacher.last_name}`}</strong>
                     <span>{teacher.subject}</span>
                 </div>
             </header>

@@ -27,6 +27,18 @@
     margin-left: 16px;
 }
 
+.btn-logout {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-primary-dark);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+}
+
 .page-landing-header-top {
     display: flex;
     justify-content: space-between;
@@ -36,11 +48,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     margin-top: 3rem;
 }
 
 .logo-container-landing {
+    display: none;
     text-align: left;
     margin-right: 6.2rem;
     margin-top: 40px;
@@ -63,22 +75,24 @@
 }
 
 .hero-image {
-    width: 500px;
+    width: 100%;
 }
 
-.section-below {
+.page-landing-section {
     margin: auto;
     padding-top: 5rem;
-    display: flex;
-    align-items: center;
 }
 
-.section-below-welcome {
+.page-landing-section-welcome {
     font-size: 2rem;
     margin-right: auto;
 }
 
-.section-below-welcome span {
+.page-landing-section-welcome p {
+    line-height: 10px;
+}
+
+.page-landing-section-welcome span {
     font-weight: 600;
 }
 
@@ -95,30 +109,25 @@
     opacity: 50%;
 }
 
-.buttons-container {
-    display: flex;
-    justify-content: center;
-}
-
 .buttons-container a {
     border-radius: 0.8rem;
     padding: 2rem;
     font: 700 2.0rem Archivo;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-decoration: none;
     color: var(--color-button-text);
     transition: backgroud-color 0.2s;
-    width: 25rem;
 }
 
 .buttons-container a:first-child {
-    margin-right: 1.6rem;
+    margin: 3rem 0 1rem 0;
 }
 
 .buttons-container a img {
     width: 4rem;
+    margin-right: 2.4rem;
 }
 
 .buttons-container a.study {
@@ -137,34 +146,35 @@
     background: var(--color-secundary-dark);
 }
 
-.buttons-container a img {
-    margin-right: 2.4rem;
-}
-
-.btn-logout {
-    width: 40px;
-    height: 40px;
-    background-color: var(--color-primary-dark);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    cursor: pointer;
-}
-
-@media (max-width: 480px) {
+@media (min-width: 1100px) {
     .logo-container-landing {
-        display: none;
+        display: block;
     }
 
     .hero-image {
-        width: 100%;
+        width: 500px;
     }
 
-    .section-below {
+    .page-landing-section {
         display: flex;
-        flex-direction: column;
+        align-items: center;
+    }
+
+    .page-landing-section-welcome p {
+        line-height: normal;
+    }
+
+    .buttons-container {
+        display: flex;
         justify-content: center;
+    }
+
+    .buttons-container a {
+        width: 25rem;
+        justify-content: center;
+    }
+
+    .buttons-container a:first-child {
+        margin: 0 1.6rem 0 0;
     }
 }

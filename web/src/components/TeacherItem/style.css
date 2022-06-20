@@ -1,10 +1,10 @@
 .teacher-item {
+    width: 90%;
+    margin: 2.4rem auto 2.4rem auto;
     background: var(--color-box-base);
     border: 1px solid var(--color-line-in-white);
     border-radius: 0.8rem;
-    margin-top: 2.4rem;
     overflow: hidden;
-    width: 100%;
 }
 
 .teacher-item header {
@@ -39,39 +39,85 @@
     padding: 0 2rem;
     font-size: 1.6rem;
     line-height: 2.8rem;
+    margin-bottom: 2rem;
 }
+
+/* Schedule list */
+.schedule {
+    border-top: 1px solid var(--color-line-in-white);
+    padding: 2.4rem;
+}
+
+.schedule-day {
+    display: flex;
+    align-items: center;
+    padding: 1.6rem;
+    border-radius: 8px;
+    background-color: var(--color-box-footer);
+    border: 1px solid var(--color-line-in-white);
+    margin-bottom: 0.9rem;
+}
+
+.schedule-day span {
+    font: 400 1.6rem Poppins;
+    color: var(--color-text-complement);
+    margin-right: 1rem;
+    position: relative;
+}
+
+.schedule-day span::before {
+    content: ':';
+    display: block;
+    position: absolute;
+    width: 10px;
+    right: -10px;
+}
+
+.schedule-day strong {
+    font: 700 1.6rem Archivo;
+}
+
+.schedule-day span~span {
+    margin-left: auto;
+}
+
+/* Schedule list */
 
 .teacher-item footer {
     padding: 3.2rem 2rem;
     background: var(--color-box-footer);
     border-top: 1px solid var(--color-line-in-white);
     margin-top: 3.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
 }
 
 .teacher-item footer p strong {
     color: var(--color-primary);
     font-size: 1.6rem;
-    display: block;
+    margin-left: 1.6rem;
+}
+
+.teacher-item footer p {
+    margin-bottom: 2.5rem;
 }
 
 .teacher-item footer a {
-    width: 20rem;
+    width: 100%;
     height: 5.6rem;
     background: var(--color-secundary);
     color: var(--color-button-text);
     border: 0;
     border-radius: 0.8rem;
     cursor: pointer;
-    font: 700 1.4rem Archivo;
+    font: 700 1.6rem Archivo;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     transition: 0.2s;
     text-decoration: none;
+}
+
+.teacher-item footer a img {
+    margin-right: 1.6rem;
 }
 
 .teacher-item footer a:hover {
@@ -80,6 +126,11 @@
 
 @media (min-width: 700px) {
 
+    .teacher-item {
+        width: 100%;
+        margin-top: 2.4rem 0 2.4rem 0;
+    }
+
     .teacher-item header,
     .teacher-item footer {
         padding: 3.2rem;
@@ -87,6 +138,7 @@
 
     .teacher-item>p {
         padding: 0 3.2rem;
+        margin-bottom: 0;
     }
 
     .schedule {
@@ -94,32 +146,45 @@
         grid-template-columns: repeat(5, 1fr);
         gap: 16px;
         padding: 3.2rem 3.2rem 0px 3.2rem;
+        border-top: none;
     }
 
     .schedule-day {
-        display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 1.6rem;
-        border-radius: 8px;
-        background-color: var(--color-box-footer);
-        border: 1px solid var(--color-line-in-white);
+        align-items: flex-start;
+        margin-bottom: 0;
     }
 
     .schedule-day span {
         font: 400 1.2rem Poppins;
-        color: var(--color-text-complement);
+        margin-right: 0;
+        line-height: 20px;
+    }
+
+    .schedule-day span::before {
+        content: '';
     }
 
     .schedule-day span~span {
         margin-top: 1.2rem;
+        margin-left: 0;
     }
 
     .schedule-day strong {
         font: 700 1.6rem Archivo;
+        line-height: 2.6rem;
     }
 
+    .teacher-item footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
+    .teacher-item footer p {
+        margin-bottom: 0;
+    }
 
     .teacher-item footer p strong {
         display: initial;
@@ -129,8 +194,8 @@
 
     .teacher-item footer a {
         width: 24.5rem;
-        font-size: 1.6rem;
         justify-content: center;
+        font: 700 1.6rem Archivo;
     }
 
     .teacher-item footer a img {
