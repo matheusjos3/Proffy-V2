@@ -9,9 +9,20 @@ import giveClassIcon from '../assets/icons/give-classes.svg';
 import defaultAvatar from '../assets/default-avatar.svg'
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/Landing.css'
+import { useEffect, useState } from 'react';
+import api from '../services/api';
 
 function Landing() {
     const { signOut, user } = useAuth()
+    const [totalConnections, setTotalConnections] = useState(0);
+
+    useEffect(() => {
+        api.get('/connections')
+            .then(res => {
+                const { total } = res.data
+                setTotalConnections(total)
+            })
+    }, [])
 
     function handleLogout() {
         signOut()
@@ -47,7 +58,7 @@ function Landing() {
                     <span>O que deseja fazer?</span>
                 </div>
                 <span className="total-connections">
-                    Total de 200 conexões já realizadas
+                    Total de {totalConnections} conexões já realizadas
                     <img src={purpleHeartIcon} alt="Coração roxo" />
                 </span>
 

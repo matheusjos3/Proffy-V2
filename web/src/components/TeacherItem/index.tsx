@@ -3,8 +3,10 @@ import defaultAvatar from '../../assets/default-avatar.svg';
 import { convertMinutesToHoursInt } from '../../utils/convertMinutesToHours';
 import toReal from '../../utils/formatMoney';
 import './style.css';
+import api from '../../services/api';
 
 export interface Teacher {
+    user_id: number;
     avatar: string;
     bio: string;
     cost: number
@@ -29,6 +31,12 @@ interface TeacherItemProps {
 
 const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
     const days = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta']
+
+    function createNewConnection() {
+        api.post('connections', {
+            user_id: teacher.user_id,
+        })
+    }
 
     return (
         <article className="teacher-item">
@@ -87,7 +95,9 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
 
             <footer>
                 <p>Preço/Hora <strong>{toReal(teacher.cost)}</strong></p>
-                <a target='_blank'
+                <a
+                    onClick={createNewConnection}
+                    target='_blank'
                     href={`https://wa.me/${teacher.whatsapp}`}
                     rel="noreferrer noopener">
                     <img src={whatsappIcon} alt="Entrar em contato" />
