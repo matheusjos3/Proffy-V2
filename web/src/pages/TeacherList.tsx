@@ -1,25 +1,65 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import api from '../services/api';
+import TeacherItem, { Teacher } from '../components/TeacherItem';
 
 import PageHeader from '../components/PageHeader';
 import smileIcon from '../assets/icons/smile.svg';
 
 import Select from '../components/Select';
 import Input from '../components/Input';
-import TeacherItem, { Teacher } from '../components/TeacherItem';
-import api from '../services/api';
+import Loading from '../components/Loading';
 import '../styles/TeacherList.css'
 
 function TeacherList() {
-    const [teachers, setTeachers] = useState([]);
+    const [teachers, setTeachers] = useState<Teacher[]>([]);
     const [subject, setSubject] = useState('');
     const [week_day, setWeekDay] = useState('');
     const [time, setTime] = useState('');
+    const [currentPage, setCurrentPage] = useState(1)
+    const observer = useRef<IntersectionObserver>()
+    const hasMore = useRef({ value: false })
+
+    useEffect(() => {
+        async function searchTeachers() {
+
+            if (hasMore.current.value) {
+                await api('/classes', { params: { subject, week_day, time, page: currentPage } })
+                    .then(response => {
+                        setTeachers(prev => prev.concat(response.data))
+
+                        if (response.data.length === 0) {
+                            hasMore.current.value = false
+                        }
+                    })
+            }
+        }
+
+        searchTeachers()
+    }, [currentPage, subject, week_day, time])
+
+    const lastElement = useCallback(node => {
+        if (observer.current) {
+            observer.current.disconnect()
+        }
+
+        observer.current = new IntersectionObserver((entities) => {
+            if (entities[0].isIntersecting && hasMore) {
+                setCurrentPage(page => page + 1)
+            }
+        })
+
+        if (node) observer.current.observe(node)
+    }, [hasMore])
 
     async function searchTeachers(e: FormEvent) {
         e.preventDefault();
+        setTeachers([])
 
-        await api('/classes', { params: { subject, week_day, time } })
-            .then(response => setTeachers(response.data))
+        await api('/classes', { params: { subject, week_day, time, page: 1 } })
+            .then(response => {
+                setTeachers(response.data)
+                hasMore.current.value = true
+            })
     }
 
     return (
@@ -91,10 +131,14 @@ function TeacherList() {
                     <div className='teacher-list'>
                         {
                             teachers.map((teacher: Teacher) => {
-                                return <TeacherItem key={teacher.id_class} teacher={teacher} />
+                                return (
+                                    <TeacherItem key={teacher.id_class} teacher={teacher} />
+                                )
                             })
                         }
-                        <p>Estes são todos os resultados</p>
+                        <div ref={lastElement}>
+                            {hasMore.current.value ? <Loading color='#6A6180' /> : <p>Estes são todos os resultados</p>}
+                        </div>
                     </div>
                 }
             </main>
