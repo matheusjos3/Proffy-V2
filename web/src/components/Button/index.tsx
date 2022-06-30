@@ -11,7 +11,7 @@ interface ButtonProps {
 function Button({ type, text, isDisabled, isLoading }: ButtonProps) {
     return (
         <button type={type} className="btn" disabled={isDisabled}>
-            {isLoading ? <Loading /> : text}
+            {isLoading ? <Loading color='#ffffff' /> : text}
         </button>
     );
 }

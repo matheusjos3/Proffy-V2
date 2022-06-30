@@ -1,10 +1,14 @@
 import { CircleNotch } from 'phosphor-react';
 import './style.css';
 
-function Loading() {
+interface LoadingProps {
+    color: string;
+}
+
+function Loading({ color }: LoadingProps) {
     return (
         <div >
-            <CircleNotch size={20} color="#ffffff" weight="bold" className='loading-animation' />
+            <CircleNotch size={20} color={color} className='loading-animation' />
         </div>
     )
 }

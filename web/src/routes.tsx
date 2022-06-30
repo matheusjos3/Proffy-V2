@@ -17,7 +17,7 @@ function PrivateRoute({ component: Component, ...rest }: any) {
     const { authenticated, loading } = useAuth()
 
     if (loading) {
-        return <Loading />
+        return <Loading color='#6A6180' />
     }
 
     return (
