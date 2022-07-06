@@ -15,6 +15,7 @@ function TeacherList() {
     const [subject, setSubject] = useState('');
     const [week_day, setWeekDay] = useState('');
     const [time, setTime] = useState('');
+    const [countTeachers, setCountTeachers] = useState(0);
     const [currentPage, setCurrentPage] = useState(1)
     const observer = useRef<IntersectionObserver>()
     const hasMore = useRef({ value: false })
@@ -62,6 +63,18 @@ function TeacherList() {
             })
     }
 
+    useEffect(() => {
+        async function getNumberOfClasses() {
+            await api.get('/count-classes')
+                .then(res => {
+                    setCountTeachers(res.data.total)
+                })
+                .catch(() => setCountTeachers(0))
+        }
+
+        getNumberOfClasses()
+    })
+
     return (
         <div id="page-teacher-list" className="container">
             <PageHeader
@@ -69,7 +82,7 @@ function TeacherList() {
                 src={smileIcon}
                 alt='Ilustração de emoji sorrindo'
                 styleInfo='info-study-text'
-                paragraph='Nós temos 32 professores.'
+                paragraph={`Nós temos ${countTeachers} professores.`}
                 styleHeader='header-row'
             >
                 <form id="search-teachers" onSubmit={searchTeachers}>

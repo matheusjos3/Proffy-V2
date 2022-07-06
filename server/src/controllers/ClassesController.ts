@@ -114,4 +114,16 @@ export default class ClassesController {
             return response.status(400).json({ message: 'Erro ao cadastrar sua aula.' })
         }
     }
+
+    async numberOfclasses(request: Request, response: Response) {
+        try {
+            const totalClasses = await db('classes').count('* as total');
+
+            const { total } = totalClasses[0];
+
+            return response.status(200).json({ total })
+        } catch (error) {
+            return response.status(400).send()
+        }
+    }
 }
