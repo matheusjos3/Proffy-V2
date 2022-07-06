@@ -1,13 +1,13 @@
 import { Request, Response } from 'express'
+import db from '../database/connection'
 import crypto1 from 'crypto'
 import path from 'path'
 import fs from 'fs'
 import mailer from '../mail/mailer'
 import Handlebars from 'handlebars'
-import bcrypt from 'bcrypt';
 import { isAfter } from 'date-fns'
+import bcrypt from 'bcrypt';
 import { isEmpty } from '../utils/isEmpty'
-import db from '../database/connection'
 
 export default class UserPasswordController {
   async forgotPassword(request: Request, response: Response) {
@@ -61,7 +61,7 @@ export default class UserPasswordController {
       .catch(error => response.status(400).json(error))
   }
 
-  async resertPassword(request: Request, response: Response) {
+  async resetPassword(request: Request, response: Response) {
     const { password, token } = request.body
 
     try {

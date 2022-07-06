@@ -12,6 +12,7 @@ import TeacherList from './pages/TeacherList';
 import Loading from './components/Loading';
 import SuccessCreateClass from './pages/SuccessCreateClass';
 import { useAuth } from './contexts/AuthContext';
+import ResetPassword from './pages/ResetPassword';
 
 function PrivateRoute({ component: Component, ...rest }: any) {
     const { authenticated, loading } = useAuth()
@@ -44,6 +45,7 @@ function Routes() {
             <Route path="/success-create-account" component={SuccessCreateAccount} />
             <Route path="/success-create-class" component={SuccessCreateClass} />
             <Route path="/success-reset-credentials" component={SuccessResetPassword} />
+            <Route path="/reset-password" component={ResetPassword} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute path="/give-classes" component={TeacherForm} />

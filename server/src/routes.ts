@@ -25,21 +25,22 @@ routes.get('/user', autenticate, userController.getUserData)
 routes.put('/user', autenticate, userController.updateUser)
 
 routes.post('/forgot_password', userPasswordController.forgotPassword)
-routes.put('/reset_password', userPasswordController.resertPassword)
+routes.put('/reset_password', userPasswordController.resetPassword)
 
 routes.get('/classes', autenticate, classesController.index)
 routes.post('/classes', autenticate, classesController.create)
+routes.get('/count-classes', autenticate, classesController.numberOfclasses)
 
 routes.get('/favorites', autenticate, favoriteControler.index)
 routes.post('/favorites', autenticate, favoriteControler.add)
 routes.delete('/favorites', autenticate, favoriteControler.remove)
 
-routes.get('/connections', connectionsController.index)
+routes.get('/connections', autenticate, connectionsController.index)
 routes.post('/connections', autenticate, connectionsController.create)
 
 routes.put('/refresh-token', authenticationController.refreshToken)
 
-routes.post('/schedule', scheduleController.addSchedule)
-routes.delete('/schedule', scheduleController.removeSchedule)
+routes.post('/schedule', autenticate, scheduleController.addSchedule)
+routes.delete('/schedule', autenticate, scheduleController.removeSchedule)
 
 export default routes;
