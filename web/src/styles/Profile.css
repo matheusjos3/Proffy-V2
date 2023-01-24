@@ -135,7 +135,7 @@
 }
 
 
-#page-teacher main fieldset .select-block+.input-block {
+#page-teacher main fieldset .custom-select-block+.input-block {
     margin-top: 2.4rem;
 }
 
@@ -151,7 +151,7 @@
 }
 
 .input-grid+.input-grid2 {
-    margin: 1.4rem 0;
+    margin: 2.5rem 0;
 }
 
 #page-teacher main label {
@@ -320,7 +320,7 @@
 
     #page-teacher main .input-grid .input-block,
     #page-teacher main .input-grid2 .input-block,
-    #page-teacher main .input-grid2 .select-block+.input-block {
+    #page-teacher main .input-grid2 .custom-select-block+.input-block {
         margin-top: 0;
     }
 }

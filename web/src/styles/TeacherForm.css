@@ -56,7 +56,7 @@
     margin-top: 2.4rem;
 }
 
-#page-teacher-form main fieldset .select-block+.input-block {
+#page-teacher-form main fieldset .custom-select-block+.input-block {
     margin-top: 2.4rem;
 }
 
@@ -170,7 +170,7 @@
         grid-template-columns: 2fr 1fr;
     }
 
-    #page-teacher-form main fieldset .select-block+.input-block {
+    #page-teacher-form main fieldset .custom-select-block+.input-block {
         margin: 0;
     }
 

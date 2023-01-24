@@ -11,12 +11,13 @@ import { useToast } from "../contexts/ToastContext";
 import Toast from "../components/Toast";
 
 function ResetPassword() {
-    const query = useQuery()
-    const history = useHistory()
     const { addMessage } = useToast()
     const [password, setPassword] = useState('')
     const [comfirmPassword, setComfirmPassword] = useState('')
     const [isChangingPassword, setIsChangingPassword] = useState(false)
+
+    const query = useQuery()
+    const history = useHistory()
 
     async function handleResetPassoword(e: FormEvent) {
         e.preventDefault()
