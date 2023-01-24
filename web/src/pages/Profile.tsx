@@ -5,22 +5,22 @@ import logo from '../assets/logo.svg';
 import back from '../assets/icons/back.svg';
 import camera from '../assets/icons/camera.svg';
 import Textarea from '../components/Textarea'
-import Input from '../components/Input'
-import Select from '../components/Select'
+import Input from '../components/Input';
 import warningIcon from '../assets/icons/warning.svg';
 import defaultAvatar from '../assets/default-avatar.svg';
 
 import api from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
-import Toast from '../components/Toast'
-import { convertMinutesToHours } from '../utils/convertMinutesToHours';
 import { getLocalStorageUser } from '../utils/storage';
-import '../styles/Profile.css'
+import { convertMinutesToHours } from '../utils/convertMinutesToHours';
+import Toast from '../components/Toast';
+import CustomSelect from '../components/CustomSelect';
+import '../styles/Profile.css';
 
 interface ScheduleItem {
     id: number;
-    week_day: number;
+    week_day: string;
     from: number;
     to: number;
 }
@@ -37,9 +37,8 @@ function Profile() {
     const [subject, setSubjec] = useState('');
     const [cost, setCost] = useState('');
     const [scheduleItems, setSchedulesItems] = useState<Array<ScheduleItem>>([]);
-    const [isTeacher, setIsTeacher] = useState(false)
-    const [class_id, setClassId] = useState(0)
-
+    const [isTeacher, setIsTeacher] = useState(false);
+    const [class_id, setClassId] = useState(0);
 
     useEffect(() => {
         async function getUserData() {
@@ -49,7 +48,7 @@ function Profile() {
                     setName(res.data.user.name)
                     setLastName(res.data.user.last_name)
                     setEmail(res.data.user.email)
-                    setWhatsapp(res.data.user.whatsapp || '')
+                    formatNumber(res.data.user.whatsapp || '')
                     setBio(res.data.user.bio)
                     setAvatar(res.data.user.avatar || '')
 
@@ -65,6 +64,7 @@ function Profile() {
                                 to: convertMinutesToHours(item.to)
                             }
                         )))
+
                         setClassId(res.data.classes.id)
                     }
                 })
@@ -79,7 +79,7 @@ function Profile() {
                 .then(res => {
                     setSchedulesItems([
                         ...scheduleItems,
-                        { id: res.data.id, week_day: 0, from: 0, to: 0 }
+                        { id: res.data.id, week_day: '0', from: 0, to: 0 }
                     ])
                 })
                 .catch(err => addMessage({ message: err.response.data.message, type: 'Error' }))
@@ -111,11 +111,22 @@ function Profile() {
     function handleUpdateUser(e: FormEvent) {
         e.preventDefault()
 
-        const data = { user_id: user?.id, name, email, last_name: lastName, avatar: '', bio, whatsapp, subject, cost, schedule: scheduleItems }
+        const newWhatsapp = whatsapp.replace(/\D/g, "")
+
+        const data = { user_id: user?.id, name, email, last_name: lastName, avatar: '', bio, whatsapp: newWhatsapp, subject, cost, schedule: scheduleItems }
 
         api.put('/user', data)
             .then(res => addMessage({ message: res.data.message, type: 'Success' }))
             .catch(res => addMessage({ message: res.response.data.message, type: 'Error' }))
+    }
+
+    function formatNumber(phone: string) {
+        phone = phone.replace(/\D/g, "")
+
+        if (phone.length <= 11) {
+            phone = phone.replace(/^(\d{2})(\d{1})(\d{4})(\d{4})/, '($1) $2 $3 $4')
+            setWhatsapp(phone)
+        }
     }
 
     return (
@@ -157,7 +168,7 @@ function Profile() {
                             <Input
                                 name='name'
                                 label='Nome'
-                                type={'text'}
+                                type='text'
                                 value={name}
                                 onChange={(e) => { setName(e.target.value) }}
                             />
@@ -184,13 +195,15 @@ function Profile() {
                                 name='whastapp'
                                 label='Whatsapp'
                                 type={'text'}
+                                placeholder="( ) _ ____ ____"
                                 value={whatsapp}
-                                onChange={(e) => { setWhatsapp(e.target.value) }}
+                                onChange={(e) => { formatNumber(e.target.value) }}
                             />
                         </div>
 
                         <Textarea
                             name='bio'
+                            maxLength={300}
                             label='Biografia'
                             value={bio}
                             onChange={(e) => { setBio(e.target.value) }}
@@ -202,11 +215,12 @@ function Profile() {
                             <legend>Sobre a aula</legend>
 
                             <div className='input-grid2'>
-                                <Select
-                                    name="subject"
+                                <CustomSelect
+
                                     label="Matéria"
                                     value={subject}
-                                    onChange={(e) => setSubjec(e.target.value)}
+                                    placeholder="Selecione"
+                                    onChangeValue={(value) => setSubjec(value)}
                                     options={[
                                         { value: 'Artes', label: 'Artes' },
                                         { value: 'Biologia', label: 'Biologia' },
@@ -241,11 +255,11 @@ function Profile() {
                                 return (
                                     <div key={scheduleItem.id}>
                                         <div className="schedule-item">
-                                            <Select
-                                                name='week_day'
+                                            <CustomSelect
                                                 label="Dia da semana"
-                                                value={scheduleItem.week_day}
-                                                onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
+                                                value={String(scheduleItem.week_day)}
+                                                placeholder="Selecione"
+                                                onChangeValue={v => setScheduleItemValue(index, 'week_day', v)}
                                                 options={[
                                                     { value: '0', label: 'Segunda-feira' },
                                                     { value: '1', label: 'Terça-feira' },
