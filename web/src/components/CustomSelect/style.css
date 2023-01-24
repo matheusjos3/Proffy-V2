@@ -1,0 +1,124 @@
+.custom-select-block {
+    position: relative;
+}
+
+.custom-select-block + .custom-select-block {
+    margin-top: 1.4rem;
+}
+
+.custom-select-block label {
+    font-size: 1.4rem;
+}
+
+.custom-select {
+    margin-top: 0.8rem;
+    position: relative;
+    height: 5.6rem;
+}
+
+.custom-select .select {
+    position: absolute;
+    width: 100%;
+    height: 5.6rem;
+    background: var(--color-input-background);
+    border: 1px solid var(--color-line-in-white);
+    border-radius: 0.8rem;
+    cursor: pointer;
+    
+}
+
+.custom-select .select .selected {
+    padding: 1.6rem;
+    position: relative;
+}
+
+.custom-select .select.select-open .selected {
+    border-bottom: 1px solid var(--color-line-in-white);
+}
+
+.select-placeholder {
+    font: 400 1.6rem Poppins;
+    color: var(--color-label-in-white);
+}
+
+.selected::after {
+    content: '';
+    display: inline-block;
+    background: url("../../assets/icons/arrow.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 25px;
+    right: 16px;
+    width: 1rem;
+    height: 1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-select .select.select-open .selected::after {
+    transform: rotate(180deg);
+    top: 20px;
+}
+
+.custom-select .select .select-options {
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s;
+    opacity: 0;
+    z-index: 50;
+}
+
+.custom-select .select.select-open {
+    z-index: 60;
+    height: auto;
+}
+
+.custom-select .select.select-open .select-options {
+    height: 200px !important;
+    overflow-y: scroll;
+    opacity: 1;
+}
+
+.option {
+    padding: 1.2rem;
+    position: relative;
+}
+
+.option+.option {
+    border-top: 1px solid var(--color-line-in-white);
+}
+
+.option span {
+    color: var(--color-text-base);
+    font: 400 1.6rem Poppins;
+}
+
+.option:hover {
+    background: var(--color-hover);
+}
+
+/* OPTION ACTIVE */
+.option.option-active {
+    background: var(--color-hover);
+}
+
+.option.option-active span {
+    font-weight: 700;
+}
+
+.option.option-active::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    display: block;
+    background-color: var(--color-primary);
+    top: 0;
+    left: 0;
+}
+
+@media (min-width: 700px) {
+    .custom-select-block + .custom-select-block {
+        margin-top: 0px;
+    }
+}
