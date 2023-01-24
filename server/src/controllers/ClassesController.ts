@@ -45,8 +45,7 @@ export default class ClassesController {
                 this.select('class_schedule.*').from('class_schedule')
                     .whereRaw('`class_schedule`.`class_id`=`classes`.`id`')
                     .whereRaw('`class_schedule`.`week_day` = ??', [Number(week_day)])
-                    .whereRaw('`class_schedule`.`from`<= ??', [timeInMinutes])
-                    .whereRaw('`class_schedule`.`to`> ??', [timeInMinutes])
+                    .whereRaw('`class_schedule`.`from`= ??', [timeInMinutes])
             })
             .where('classes.subject', '=', subject)
             .join('users', 'classes.user_id', '=', 'users.id')
@@ -115,7 +114,7 @@ export default class ClassesController {
         }
     }
 
-    async numberOfclasses(request: Request, response: Response) {
+    async countClasses(request: Request, response: Response) {
         try {
             const totalClasses = await db('classes').count('* as total');
 

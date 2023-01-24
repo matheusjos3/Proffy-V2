@@ -29,7 +29,7 @@ routes.put('/reset_password', userPasswordController.resetPassword)
 
 routes.get('/classes', autenticate, classesController.index)
 routes.post('/classes', autenticate, classesController.create)
-routes.get('/count-classes', autenticate, classesController.numberOfclasses)
+routes.get('/count-classes', autenticate, classesController.countClasses)
 
 routes.get('/favorites', autenticate, favoriteControler.index)
 routes.post('/favorites', autenticate, favoriteControler.add)
