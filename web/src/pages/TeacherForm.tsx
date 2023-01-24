@@ -5,15 +5,15 @@ import PageHeader from '../components/PageHeader';
 import rocketIcon from '../assets/icons/rocket.svg';
 import Input from '../components/Input';
 import Textarea from '../components/Textarea';
-import Select from '../components/Select';
 import warningIcon from '../assets/icons/warning.svg';
 import defaultAvatar from '../assets/default-avatar.svg';
 
 import api from '../services/api';
 import { getLocalStorageUser } from '../utils/storage';
 import { useAuth } from '../contexts/AuthContext';
-import '../styles/TeacherForm.css'
 import { useToast } from '../contexts/ToastContext';
+import CustomSelect from '../components/CustomSelect';
+import '../styles/TeacherForm.css'
 
 function TeacherForm() {
     const history = useHistory()
@@ -28,14 +28,14 @@ function TeacherForm() {
     const [cost, setCost] = useState('');
 
     const [scheduleItems, setScheduleItems] = useState([
-        { week_day: 0, from: '', to: '' },
+        { week_day: '', from: '', to: '' },
     ]);
 
     function addNewScheduleItem() {
         if (scheduleItems.length <= 4) {
             setScheduleItems([
                 ...scheduleItems,
-                { week_day: 0, from: '', to: '' }
+                { week_day: '', from: '', to: '' }
             ])
         }
     }
@@ -57,9 +57,9 @@ function TeacherForm() {
             const storageUser = getLocalStorageUser()
             await api.get('/user', { params: { user_id: storageUser.id } })
                 .then(res => {
-                    setName(`${storageUser.name} ${storageUser.last_name}`)
-                    setWhatsapp(res.data.user.whastapp || '')
+                    setWhatsapp(res.data.user.whatsapp)
                     setBio(res.data.user.bio)
+                    setName(`${storageUser.name} ${storageUser.last_name}`)
                     setAvatar(storageUser.avatar)
                 })
         }
@@ -96,7 +96,7 @@ function TeacherForm() {
                             <img src={avatar !== '' ? avatar : defaultAvatar} alt="Plataforma de estudos" />
                             <span>{`${name}`}</span>
                             <Input
-                                label='Whatsapp'
+                                label='WhatsApp'
                                 name='whatsapp'
                                 value={whatsapp}
                                 onChange={(e) => { setWhatsapp(e.target.value) }}
@@ -115,11 +115,11 @@ function TeacherForm() {
                         <legend>Sobre a aula</legend>
 
                         <div className='teacher-form-input-grid'>
-                            <Select
-                                name="subjec"
+                            <CustomSelect
                                 label="Matéria"
+                                placeholder='Selecione qual você quer ensinar'
                                 value={subject}
-                                onChange={(e) => setSubject(e.target.value)}
+                                onChangeValue={v => setSubject(v)}
                                 options={[
                                     { value: 'Artes', label: 'Artes' },
                                     { value: 'Biologia', label: 'Biologia' },
@@ -151,11 +151,11 @@ function TeacherForm() {
                         {scheduleItems.map((scheduleItem, index) => {
                             return (
                                 <div key={index} className="schedule-item">
-                                    <Select
-                                        name="week_day"
+                                    <CustomSelect
                                         label='Máteria'
+                                        placeholder='Selecione o dia'
                                         value={scheduleItem.week_day}
-                                        onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
+                                        onChangeValue={v => setScheduleItemValue(index, 'week_day', v)}
                                         options={[
                                             { value: '0', label: 'Segunda-feira' },
                                             { value: '1', label: 'Terça-feira' },
