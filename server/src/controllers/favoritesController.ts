@@ -16,9 +16,9 @@ interface ClassItem {
 
 export default class FavoriteController {
     async index(request: Request, response: Response) {
-        const { user_id } = request.body;
-        let classes: Array<ClassItem> = []
+        const user_id = request.query.user_id;
         const page = Number(request.query.page) || 1
+        let classes: Array<ClassItem> = []
 
         const favorites_id = await db('favorites')
             .select('teacher_id')
@@ -43,7 +43,7 @@ export default class FavoriteController {
 
         classes = classes.filter(item => item !== null)
 
-        return response.status(200).json(classes)
+        return response.status(200).json({classes, favorites_id})
     }
 
     async add(request: Request, response: Response) {
